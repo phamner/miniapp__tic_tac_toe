@@ -1,7 +1,6 @@
 console.log('app.js is working!');
 
 var board = [0,0,0,0,0,0,0,0,0];
-// var unoccupiedSquares = [0,1,2,3,4,5,6,7,8];
 var counter = 2;
 var playerOneWinCountX = 0;
 var playerTwoWinCountO = 0;
@@ -12,7 +11,6 @@ var XorOCounter = function(){
     return 'O'
   }
 }
-
 
 var checkForWinConditions = function(){
   if (
@@ -35,6 +33,8 @@ var checkForWinConditions = function(){
       }
       playerOneWinCountX++;
       document.getElementById('playerXScore').innerHTML = `Player 1 (X): ${playerOneWinCountX}`;
+
+
     } else if (
       board[0] + board[1] + board[2] === 30 ||
       board[3] + board[4] + board[5] === 30 ||
