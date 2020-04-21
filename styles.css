@@ -9,7 +9,7 @@ td {
 	cursor: pointer;
 }
 
-table {
+.gameBoard {
 	border-collapse: collapse;
 	position: absolute;
 	left: 50%;

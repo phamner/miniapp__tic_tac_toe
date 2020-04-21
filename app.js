@@ -3,6 +3,8 @@ console.log('app.js is working!');
 var board = [0,0,0,0,0,0,0,0,0];
 // var unoccupiedSquares = [0,1,2,3,4,5,6,7,8];
 var counter = 2;
+var playerOneWinCountX = 0;
+var playerTwoWinCountO = 0;
 var XorOCounter = function(){
   if (counter % 2 === 0) {
     return 'X'
@@ -26,11 +28,13 @@ var checkForWinConditions = function(){
     board[0] + board[4] + board[8] === 300
     ) {
       console.log('X has won!');
+      document.getElementById("congratsBanner").innerHTML = 'CONGRATS ON THE WIN PLAYER X'
+
       for (var i = 0; i < document.getElementsByClassName('cell').length; i++) {
         document.getElementsByClassName('cell')[i].removeEventListener("click", addPiece)
       }
-      return 'X has won!';
-
+      playerOneWinCountX++;
+      document.getElementById('playerXScore').innerHTML = `Player 1 (X): ${playerOneWinCountX}`;
     } else if (
       board[0] + board[1] + board[2] === 30 ||
       board[3] + board[4] + board[5] === 30 ||
@@ -44,10 +48,12 @@ var checkForWinConditions = function(){
       board[0] + board[4] + board[8] === 30
       ) {
         console.log('O has won!');
+        document.getElementById("congratsBanner").innerHTML = 'CONGRATS ON THE WIN PLAYER O'
         for (var i = 0; i < document.getElementsByClassName('cell').length; i++) {
           document.getElementsByClassName('cell')[i].removeEventListener("click", addPiece)
         }
-        return 'O has won';
+        playerTwoWinCountO++;
+        document.getElementById('playerOScore').innerHTML = `Player 2 (O): ${playerTwoWinCountO}`;
       }
 
 
@@ -55,12 +61,7 @@ var checkForWinConditions = function(){
   console.log('checking but no winner found yet!')
 }
 
-// var selectRandomSquare = function(){
-//   var randomIndex = Math.floor(Math.random() * unoccupiedSquares.length);
-//   // console.log('randomIndex: ',randomIndex, 'randomNumber: ', unoccupiedSquares[randomIndex]);
-//   console.log('index: ', randomIndex, 'placing piece on position: ', unoccupiedSquares[randomIndex])
-//   return randomIndex;
-// }
+
 
 var addPiece = function(){
   document.getElementById(event.path[0].id).innerHTML = XorOCounter();
@@ -75,32 +76,24 @@ var addPiece = function(){
   checkForWinConditions()
 }
 
+var resetGame = function(){
+  console.log('game will be reset.');
+  board = [0,0,0,0,0,0,0,0,0];
+  for (var i = 0; i < document.getElementsByClassName('cell').length; i++) {
+    document.getElementsByClassName('cell')[i].innerHTML = '';
+    document.getElementsByClassName('cell')[i].addEventListener("click", addPiece);
+  }
+  counter = 2;
+  document.getElementById("congratsBanner").innerHTML = '';
 
-
-
-// var redMove = function(event){
-//   console.log('begining of red move: ', unoccupiedSquares)
-//   document.getElementById(event.path[0].id).style.backgroundColor = 'red';
-//   unoccupiedSquares.splice(unoccupiedSquares.indexOf(event.path[0].id), 1);
-//   console.log('red move: ', event.path[0].id)
-
-//   setTimeout(blueMove, 300);
-//   console.log('end of red move: ', unoccupiedSquares)
-// }
-
-// var blueMove = function() {
-//   console.log('begining of blue move: ', unoccupiedSquares)
-
-//   var randomIndex = selectRandomSquare();
-//   document.getElementById(unoccupiedSquares[randomIndex]).style.backgroundColor = 'blue';
-//   unoccupiedSquares.splice(randomIndex, 1)
-//   console.log('end of blue move: ', unoccupiedSquares)
-
-// }
+}
 
 
 
 for (var i = 0; i < document.getElementsByClassName('cell').length; i++) {
   document.getElementsByClassName('cell')[i].addEventListener("click", addPiece)
 }
+
+document.getElementById("resetGame").addEventListener("click", resetGame)
+
 
