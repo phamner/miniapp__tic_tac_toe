@@ -1,3 +1,5 @@
+
+//Building board, score, and counter system (DO NOT DELETE ANYTHING HERE)
 var board = [0,0,0,0,0,0,0,0,0];
 var counter = 2;
 var playerOneWinCountX = 0;
@@ -11,15 +13,13 @@ var XorOCounter = function(){
 }
 
 var checkScores = function(){
-  console.log('about to call axios get request from the client');
+  // console.log('about to call axios get request from the client');
   // Make a request for a user with a given ID
   axios.get('/scores')
   .then(function (response) {
     // handle success
-    console.log('the response we get in the client from the server: ', response.data);
-
-    console.log(`playerOneWinCountX = ${response.data[0].score}`);
-    console.log(`playerOneWinCountO = ${response.data[1].score}`);
+    document.getElementById("playerXScore").innerHTML = `Player 1 (X): ${response.data[0].score}`;
+    document.getElementById("playerOScore").innerHTML = `Player 2 (O): ${response.data[1].score}`;
   })
   .catch(function (error) {
     // handle error
@@ -45,8 +45,6 @@ var incrementScore = function(player, newScore){
 
 }
 
-checkScores();
-
 var checkForWinConditions = function(){
   if (
     board[0] + board[1] + board[2] === 300 ||
@@ -69,6 +67,7 @@ var checkForWinConditions = function(){
       playerOneWinCountX++;
       incrementScore('Player 1', playerOneWinCountX);
       document.getElementById('playerXScore').innerHTML = `Player 1 (X): ${playerOneWinCountX}`;
+      checkScores();
 
 
     } else if (
@@ -91,6 +90,8 @@ var checkForWinConditions = function(){
         playerTwoWinCountO++
         incrementScore('Player 2', playerTwoWinCountO);
         document.getElementById('playerOScore').innerHTML = `Player 2 (O): ${playerTwoWinCountO}`;
+        checkScores();
+
       }
 
 
@@ -120,6 +121,7 @@ var resetGame = function(){
   }
   counter = 2;
   document.getElementById("congratsBanner").innerHTML = '';
+  checkScores();
 
 }
 
@@ -129,4 +131,5 @@ for (var i = 0; i < document.getElementsByClassName('cell').length; i++) {
 
 document.getElementById("resetGame").addEventListener("click", resetGame)
 
-
+//loads up correct data when the page is refreshed.
+checkScores();
