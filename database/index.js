@@ -1,8 +1,8 @@
 const mysql = require('mysql');
 const mysqlConfig = require('./config.js');
-
-
 const connection = mysql.createConnection(mysqlConfig);
+
+
 
 module.exports = {
 
@@ -16,16 +16,14 @@ module.exports = {
     });
   },
 
-  increaseWinnerScore: function(callback){
-    connection.query(`UPDATE scores SET score = ${userName} WHERE username = ${userName}`, function (error, results, fields) {
+  increaseWinnerScore: function(score, username, callback){
+    // console.log(`UPDATE scores SET score = score + 1 WHERE username = '${username}'`);
+    connection.query(`UPDATE scores SET score = score + 1 WHERE username = '${username}'`, function (error, results, fields) {
       if (error){
-        console.log(error)
+        callback(error)
       } else {
         callback(results);
       }
     });
-
   }
 }
-
-// module.exports.getScores = getScores;

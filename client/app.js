@@ -1,6 +1,3 @@
-
-
-
 var board = [0,0,0,0,0,0,0,0,0];
 var counter = 2;
 var playerOneWinCountX = 0;
@@ -70,6 +67,7 @@ var checkForWinConditions = function(){
         document.getElementsByClassName('cell')[i].removeEventListener("click", addPiece)
       }
       playerOneWinCountX++;
+      incrementScore('Player 1', playerOneWinCountX);
       document.getElementById('playerXScore').innerHTML = `Player 1 (X): ${playerOneWinCountX}`;
 
 
@@ -90,8 +88,8 @@ var checkForWinConditions = function(){
         for (var i = 0; i < document.getElementsByClassName('cell').length; i++) {
           document.getElementsByClassName('cell')[i].removeEventListener("click", addPiece)
         }
-        incrementScore('Player 2', playerTwoWinCountO++);
-        playerTwoWinCountO++;
+        playerTwoWinCountO++
+        incrementScore('Player 2', playerTwoWinCountO);
         document.getElementById('playerOScore').innerHTML = `Player 2 (O): ${playerTwoWinCountO}`;
       }
 
@@ -99,8 +97,6 @@ var checkForWinConditions = function(){
 
   console.log('checking but no winner found yet!')
 }
-
-
 
 var addPiece = function(){
   document.getElementById(event.path[0].id).innerHTML = XorOCounter();
@@ -126,8 +122,6 @@ var resetGame = function(){
   document.getElementById("congratsBanner").innerHTML = '';
 
 }
-
-
 
 for (var i = 0; i < document.getElementsByClassName('cell').length; i++) {
   document.getElementsByClassName('cell')[i].addEventListener("click", addPiece)

@@ -7,6 +7,9 @@ const { getScores, increaseWinnerScore } = require('../database/index.js');
 //app.use()
 app.use(express.static('client'));
 
+app.use(express.json()) // for parsing application/json
+app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+
 
 app.get('/scores', (req, res) => {
   console.log('axios GET request has arrived at the server!')
@@ -15,12 +18,11 @@ app.get('/scores', (req, res) => {
   });
 })
 
-//HOW DO I HANDLE INCOMING DATA IN AXIOS POST REQUEST TO UPDATE THE DB???
-app.post('/scores', (req, res) =>{
-  console.log('REQUEST OBJECT: ', req);
-  increaseWinnerScore()
-  res.send('axios POST request has arrived at the server! (res.send())')
-  //need to build a function in database/index.js that querys the db and updates scores.
+app.post('/scores', (req, res) => {
+  console.log('REQUEST OBJECT: ', req.body);
+  increaseWinnerScore(req.body.score, req.body.username, (data) => {
+    res.status(200).send(data)
+  })
 })
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
