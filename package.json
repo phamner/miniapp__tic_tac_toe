@@ -1,0 +1,26 @@
+{
+  "name": "miniapp__tic_tac_toe",
+  "version": "1.0.0",
+  "description": "tic tac toe",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phamner/miniapp__tic_tac_toe.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/phamner/miniapp__tic_tac_toe/issues"
+  },
+  "homepage": "https://github.com/phamner/miniapp__tic_tac_toe#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "express": "^4.17.1",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.3"
+  }
+}
